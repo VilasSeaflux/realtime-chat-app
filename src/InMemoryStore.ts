@@ -32,13 +32,15 @@ export class InMemoryStore implements Store {
 		if (!room) {
 			return;
 		}
-		room.chats.push({
+		const chat = {
 			chatId: (globalChat++).toString(),
 			userId,
 			name,
 			message,
 			upvotes: [],
-		});
+		};
+		room.chats.push(chat);
+		return chat;
 	}
 	upvote(roomId: string, chatId: string, userId: string) {
 		const room = this.store.get(roomId);
@@ -50,5 +52,6 @@ export class InMemoryStore implements Store {
 			return;
 		}
 		chat.upvotes.push(userId);
+		return chat;
 	}
 }
